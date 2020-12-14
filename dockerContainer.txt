@@ -1,0 +1,4 @@
+Name: barbershop
+Container name: barbershop
+Bind ports: 8801:8801
+Bind mounts: /root/logs:/logs
