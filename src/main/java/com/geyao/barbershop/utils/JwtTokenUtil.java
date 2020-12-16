@@ -78,7 +78,7 @@ public class JwtTokenUtil implements Serializable {
         Claims claims = getClaimsFromToken(token);
         Date expiration = claims.getExpiration();
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, 1);
+        calendar.add(Calendar.DATE, 1);
         return expiration.before(calendar.getTime());
     }
 

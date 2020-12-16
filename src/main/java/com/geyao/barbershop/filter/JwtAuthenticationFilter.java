@@ -49,8 +49,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 if (isValidate && !isExpired) {
                     canPass = true;
 
-                    //token一分钟之内要过期，刷新token
+                    //token一天之内要过期，刷新token
                     if (jwtTokenUtil.isExpireSoon(token)) {
+                        System.out.println("token past coming soon!!!");
                         String newToken = jwtTokenUtil.refreshToken(token);
 
                         //旧token放入黑名单,保留一分钟，解决并发过程中新token刷新同时，旧token请求失效的情况
