@@ -22,7 +22,7 @@ import java.util.Objects;
 public class DealControllerImpl extends BaseController implements DealController {
 
     //客户查询记录有限时间
-    private static final int CUSTOMER_QUERY_DATE = 1;
+    private static final int CUSTOMER_QUERY_DATE = 3;
 
     /**
      *  首页查询
@@ -94,7 +94,7 @@ public class DealControllerImpl extends BaseController implements DealController
             return new ResultVo(checkRes);
         }
         JSONObject data = new JSONObject();
-        List<TransRecord> trans = service.queryTransList(null,getBeforeDate(CUSTOMER_QUERY_DATE),0);
+        List<TransRecord> trans = service.queryTransList(null,getBeforeDate(1),0);
         trans.stream().forEach(record -> {
             record.setAmountFmt(AmountUtil.yuanFormat(Double.toString(record.getAmount())));
             record.setTimeFmt(DateUtils.dateToStr(record.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));

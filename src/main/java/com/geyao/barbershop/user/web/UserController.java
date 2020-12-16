@@ -5,6 +5,7 @@ import com.geyao.barbershop.common.ResultVo;
 import com.geyao.barbershop.user.pojo.User;
 import com.geyao.barbershop.user.service.UserService;
 import com.geyao.barbershop.utils.JwtTokenUtil;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import java.util.Objects;
 @RequestMapping("/user")
 public class UserController {
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
+
+
     @Resource
     UserService service;
     @Autowired
@@ -40,9 +43,9 @@ public class UserController {
         //校验验证码
         String res = service.checkValidateCode(user.getMobile(),user.getValidateCode());
         LOG.info("校验验证码结果：{}",res);
-//        if(!"".equals(res)){
-//            return new ResultVo(res);
-//        }
+        if(!"".equals(res)){
+            return new ResultVo(res);
+        }
 
         String token = jwtTokenUtil.generateToken(user.getMobile());
         if(token == null){
