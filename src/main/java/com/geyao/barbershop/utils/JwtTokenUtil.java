@@ -67,7 +67,7 @@ public class JwtTokenUtil implements Serializable {
                 return false;
             }
             Date expiration = claims.getExpiration();
-            System.out.println("token past time：" + DateUtils.dateToStr(expiration));
+            System.out.println("token past time:" + DateUtils.dateToStr(expiration));
             return expiration.before(new Date());
         } catch (Exception e) {
             return false;

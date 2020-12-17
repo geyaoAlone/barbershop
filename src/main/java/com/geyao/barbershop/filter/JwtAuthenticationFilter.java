@@ -3,7 +3,10 @@ package com.geyao.barbershop.filter;
 import com.geyao.barbershop.constants.Constant;
 import com.geyao.barbershop.dao.RedisDao;
 import com.geyao.barbershop.security.JwtUserDetailService;
+import com.geyao.barbershop.user.web.UserController;
 import com.geyao.barbershop.utils.JwtTokenUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +27,7 @@ import java.util.Objects;
  */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
-
+    private static final Logger LOG = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
     @Autowired
     private JwtUserDetailService jwtUserDetailService;
 
@@ -36,6 +39,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+        LOG.info("request url [{}]",request.getRequestURI());
         String header = request.getHeader(Constant.JWT_HEADER);
         if (header != null && header.startsWith(Constant.JWT_PREFIX)) {
             String token = header.replace(Constant.JWT_PREFIX, "");
@@ -51,7 +55,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                     //token一天之内要过期，刷新token
                     if (jwtTokenUtil.isExpireSoon(token)) {
-                        System.out.println("token past coming soon!!!");
+                        System.out.println("token past coming soon !!!");
                         String newToken = jwtTokenUtil.refreshToken(token);
 
                         //旧token放入黑名单,保留一分钟，解决并发过程中新token刷新同时，旧token请求失效的情况

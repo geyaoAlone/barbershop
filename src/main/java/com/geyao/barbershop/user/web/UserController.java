@@ -5,7 +5,6 @@ import com.geyao.barbershop.common.ResultVo;
 import com.geyao.barbershop.user.pojo.User;
 import com.geyao.barbershop.user.service.UserService;
 import com.geyao.barbershop.utils.JwtTokenUtil;
-import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,7 @@ public class UserController {
 
         //校验验证码
         String res = service.checkValidateCode(user.getMobile(),user.getValidateCode());
-        LOG.info("校验验证码结果：{}",res);
+        LOG.info("check validateCode result：{}",res);
         if(!"".equals(res)){
             return new ResultVo(res);
         }
