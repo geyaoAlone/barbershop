@@ -52,5 +52,8 @@ public interface DealController {
 
     @GetMapping("/transList")
     public ResultVo transList(String cMobile);
+
+    @GetMapping("/queryNormalUser")
+    public ResultVo queryNormalUser();
 }
 

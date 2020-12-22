@@ -22,6 +22,7 @@ public class BuziConstant {
     public static final String TRANS_ID_START = "Tr";
 
     /****************表名******************/
+    public static final String CONFIG_TABLE_NAME = "config";
     public static final String PRODUCT_TABLE_NAME = "buyProduct";
     public static final String TRANS_TABLE_NAME = "transRecord";
     public static final String USER_TABLE_NAME = "user";
@@ -32,6 +33,14 @@ public class BuziConstant {
     public static final String TOTAL_ITEMS = "totalItems";
     public static final String TOTAL_AMOUNT = "totalAmount";
     public static final String TOTAL_ID = "_id";
+
+
+    /****************config_code****************/
+    public static final String CONFIG_ADMIN_CODE = "adminMobile";
+    public static final String CUSTOMER_QUERY_DATE_CODE = "customerQueryDate";
+    public static final String ALIYUN_KEY_ID_CODE = "aliyunKeyId";
+    public static final String ALIYUN_SECRET_CODE = "aliyunSecret";
+    /*******************************************/
 
 
 }

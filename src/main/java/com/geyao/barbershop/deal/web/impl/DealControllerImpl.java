@@ -21,9 +21,18 @@ import java.util.Objects;
 @RestController
 public class DealControllerImpl extends BaseController implements DealController {
 
-    //客户查询记录有限时间
-    private static final int CUSTOMER_QUERY_DATE = 3;
-
+    @Override
+    public ResultVo queryNormalUser() {
+        String mobile = getMobile();
+        if(StringUtils.isEmpty(mobile)){
+            return new ResultVo("token异常！");
+        }
+        List<User> u = user.queryNormalUser(mobile);
+        if(Objects.isNull(u)){
+            return new ResultVo("用户异常！");
+        }
+        return new ResultVo(u.get(0));
+    }
     /**
      *  首页查询
      * @return
@@ -41,7 +50,7 @@ public class DealControllerImpl extends BaseController implements DealController
         JSONObject data = new JSONObject();
         data.put("user",u);
         if(BuziConstant.CUSTOMER_ROLE_CODE == u.getRole()){
-            List<TransRecord> trans = service.queryTransList(u.getMobile(),getBeforeDate(CUSTOMER_QUERY_DATE),0 );
+            List<TransRecord> trans = service.queryTransList(u.getMobile(),getBeforeDate(Integer.parseInt(user.queryConfigValue(BuziConstant.CUSTOMER_QUERY_DATE_CODE))),0 );
             trans.stream().forEach(record -> {
                 record.setAmountFmt(AmountUtil.yuanFormat(Double.toString(record.getAmount())));
                 record.setTimeFmt(DateUtils.dateToStr(record.getCreateTime(),"yyyy-MM-dd HH:mm:ss"));
@@ -191,7 +200,6 @@ public class DealControllerImpl extends BaseController implements DealController
         });
         return new ResultVo(list);
     }
-
 
     @Override
     public ResultVo delProduct(String id) {

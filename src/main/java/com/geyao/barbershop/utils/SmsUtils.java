@@ -10,17 +10,14 @@ import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.exceptions.ServerException;
 import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
-import com.geyao.barbershop.aspect.HttpAspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.Random;
 
 public class SmsUtils {
     private static final Logger LOG = LoggerFactory.getLogger(SmsUtils.class);
 
-    public static boolean aliyunSendSms(String mobile,String code) {
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "", "");
+    public static boolean aliyunSendSms(String mobile,String code, String accessKeyId, String secret) {
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4G2QjkfCxb97bMg5nUEu", "");
         IAcsClient client = new DefaultAcsClient(profile);
         CommonRequest request = new CommonRequest();
         request.setSysMethod(MethodType.POST);
