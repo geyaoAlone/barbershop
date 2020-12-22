@@ -17,7 +17,7 @@ public class SmsUtils {
     private static final Logger LOG = LoggerFactory.getLogger(SmsUtils.class);
 
     public static boolean aliyunSendSms(String mobile,String code, String accessKeyId, String secret) {
-        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAI4G2QjkfCxb97bMg5nUEu", "");
+        DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou",accessKeyId, secret);
         IAcsClient client = new DefaultAcsClient(profile);
         CommonRequest request = new CommonRequest();
         request.setSysMethod(MethodType.POST);
